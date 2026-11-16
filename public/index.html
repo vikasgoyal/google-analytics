@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <title>Analytics Daybook</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">▥</span><span>daybook<span class="brand-dot">.</span></span></div>
+    <div class="header-right"><span class="header-label">GOOGLE ANALYTICS COMPANION</span><button id="logout" class="text-button" hidden>Sign out <span aria-hidden="true">↗</span></button></div>
+  </header>
+  <main>
+    <div class="eyebrow"><span class="eyebrow-dot"></span> YOUR ANALYTICS, SIMPLIFIED</div>
+    <div class="intro">
+      <div><h1>A closer look at <em>any day.</em></h1><p>Your traffic tells a story. Pick a date and see what happened.</p></div>
+      <div class="intro-number" aria-hidden="true">01 <span>/ THE DAILY VIEW</span></div>
+    </div>
+    <div id="notice" class="notice" role="alert" hidden></div>
+
+    <section id="welcome" class="welcome" hidden>
+      <div class="welcome-icon" aria-hidden="true">✳</div>
+      <div class="welcome-copy">
+        <div class="section-kicker">LET'S GET STARTED</div>
+        <h2>Make sense of your metrics.</h2>
+        <p>Connect your Google Analytics account to explore the numbers behind your day. Your data stays yours.</p>
+        <a id="connect" class="button button-dark" href="/auth/google">Connect Google Analytics <span aria-hidden="true">↗</span></a>
+        <p class="privacy"><span aria-hidden="true">◈</span> READ-ONLY ACCESS · NO DATA STORED</p>
+      </div>
+      <div class="welcome-art" aria-hidden="true"><div class="art-circle"></div><div class="art-bar b1"></div><div class="art-bar b2"></div><div class="art-bar b3"></div><div class="art-bar b4"></div><div class="art-bar b5"></div><div class="art-label">A LITTLE MORE CLARITY, EVERY DAY.</div></div>
+    </section>
+
+    <section id="dashboard" hidden>
+      <form id="filters" class="filter-panel">
+        <div class="filter-copy"><div class="section-kicker">THE DAILY VIEW</div><strong>Find your day</strong></div>
+        <label>PROPERTY<select id="property" required><option value="">Loading properties…</option></select></label>
+        <label>DATE<input id="date" type="date" required></label>
+        <button id="submit" class="button button-dark" type="submit">View report <span aria-hidden="true">↗</span></button>
+      </form>
+      <div id="loading" class="state" hidden>Gathering your numbers…</div>
+      <div id="report" hidden>
+        <div class="report-heading"><div><div class="section-kicker">A DAY IN NUMBERS</div><h2 id="report-date"></h2><p id="report-subtitle"></p></div><div class="live-badge"><span></span> GA4 REPORT</div></div>
+        <div id="metrics" class="metrics"></div>
+        <div class="details">
+          <section class="detail-card"><div class="card-heading"><div><div class="section-kicker">CONTENT</div><h3>Top pages & screens</h3></div><span>01</span></div><p class="card-description">Where visitors spent their time.</p><div id="pages"></div></section>
+          <section class="detail-card"><div class="card-heading"><div><div class="section-kicker">ACQUISITION</div><h3>Traffic channels</h3></div><span>02</span></div><p class="card-description">How visitors found their way to you.</p><div id="channels"></div></section>
+        </div>
+        <div class="details">
+          <section class="detail-card"><div class="card-heading"><div><div class="section-kicker">ACQUISITION</div><h3>Sources & mediums</h3></div><span>03</span></div><p class="card-description">The exact source and medium behind each visit.</p><div id="sources"></div></section>
+          <section class="detail-card"><div class="card-heading"><div><div class="section-kicker">AUDIENCE</div><h3>Countries</h3></div><span>04</span></div><p class="card-description">Where your visitors are located.</p><div id="countries"></div></section>
+        </div>
+        <div class="details">
+          <section class="detail-card"><div class="card-heading"><div><div class="section-kicker">TECHNOLOGY</div><h3>Devices</h3></div><span>05</span></div><p class="card-description">Desktop, mobile or tablet.</p><div id="devices"></div></section>
+          <section class="detail-card"><div class="card-heading"><div><div class="section-kicker">CONTENT</div><h3>Landing pages</h3></div><span>06</span></div><p class="card-description">The first page of a session, ranked by sessions.</p><div id="landing-pages"></div></section>
+        </div>
+        <section class="detail-card search-card">
+          <div class="card-heading"><div><div class="section-kicker">ACQUISITION</div><h3>Landing page sources</h3></div><span>07</span></div>
+          <p class="card-description">Top 20 landing page and session source / medium combinations, ranked by sessions.</p>
+          <div id="landing-sources" class="table-scroll"></div>
+        </section>
+        <section class="detail-card search-card">
+          <div class="card-heading"><div><div class="section-kicker">SEARCH CONSOLE</div><h3>Google search queries</h3></div><span>08</span></div>
+          <p class="card-description">What people searched on Google before landing on your site. Search Console data usually lags by 2–3 days.</p>
+          <label class="search-site">SITE<select id="search-site"></select></label>
+          <div id="search-queries" class="table-scroll" aria-live="polite"></div>
+        </section>
+        <section class="detail-card search-card">
+          <div class="card-heading"><div><div class="section-kicker">SEARCH CONSOLE</div><h3>Search opportunities</h3></div><span>09</span></div>
+          <p class="card-description">Query and page pairs with at least 5 impressions and at most 10% CTR, ranked by impressions. Candidates, not guaranteed improvements; low-volume data can be noisy.</p>
+          <div id="search-opportunities" class="table-scroll" aria-live="polite"></div>
+          <p class="footnote">Uses the selected Search Console site and date (Pacific time). Google may omit anonymized or other rows and returns results by clicks, so this is not an exhaustive ranking.</p>
+        </section>
+        <p class="footnote">GA4 data is reported in your property's time zone; Search Console uses Pacific time. Recent data may still be processing.</p>
+      </div>
+    </section>
+    <footer><span>MADE FOR THE CURIOUS <span aria-hidden="true">✳</span></span><span>YOUR DATA. YOUR PERSPECTIVE.</span></footer>
+  </main>
+</body>
+</html>

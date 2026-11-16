@@ -1,0 +1,17 @@
+{
+  "name": "analytics-daybook",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A local, date-focused Google Analytics dashboard.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "google-auth-library": "^9.15.1"
+  }
+}
